@@ -3,6 +3,9 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <vector>     
+#include <iomanip>    // Required for output formatting
+#include "HashTable.hpp" 
 
 using namespace std;
 
@@ -13,18 +16,15 @@ string encryptVigenere(string password) {
 
     // Loops through every letter of the password
     for (int i = 0; i < password.length(); i++) {
-        int pvalue;
-        int kvalue;
-        int cipher;
 
         // 1. Gets the math value of the password letter
-        pvalue = password[i] - 97;
+        int pvalue = password[i] - 97;
 
         // 2. Gets the math value of the key letter
-        kvalue = key[i % key.length()] - 97;
+        int kvalue = key[i % key.length()] - 97;
 
         // 3. Adds them together 
-        cipher = (pvalue + kvalue) % 26;
+        int cipher = (pvalue + kvalue) % 26;
 
         // 4. Sets to encryptedPassword
         encryptedPassword = encryptedPassword + static_cast<char>(cipher + 97);
@@ -34,7 +34,7 @@ string encryptVigenere(string password) {
 }
 
 int main() {
-    //Phase 1 - Step 1: Generates Raw Data
+    // Phase 1 - Step 1: Generates Raw Data
 
     // Seeds the random generator 
     srand(time(0)); 
@@ -76,14 +76,11 @@ int main() {
         outFile << userid << " " << password << endl;
     }
 
-    // Closes  files to save rawdata.txt 
+    // Closes files to save rawdata.txt 
     inFile.close();
     outFile.close();
 
-    cout << "Phase 1 - Step 1 Complete: rawdata.txt generated." << endl;
-
-
-    //Phase 1 - Step 2: Encrypts Data 
+    // Phase 1 - Step 2: Encrypts Data 
 
     // Reads updated rawdata.txt and creates the encrypted file
     ifstream rawInput("rawdata.txt");
@@ -106,6 +103,99 @@ int main() {
     rawInput.close();
     encryptedFile.close();
     
-    cout << "Phase 1 - Step 2 Complete: encrypteddata.txt generated." << endl;
+    // Phase 2: Hash Table & Testing
+
+    // 1. Builds the Hash Table
+    HashTable myTable;
+    
+    ifstream dbFile("encrypteddata.txt");
+    string dbUser, dbPass;
+    
+    // Load every single user into the table
+    while (dbFile >> dbUser >> dbPass) {
+        myTable.insert(dbUser, dbPass);
+    }
+    dbFile.close();
+
+    // 2. Get Test Cases from rawdata.txt
+    vector<string> testUsers;
+    vector<string> testPasses;
+
+    ifstream rawTest("rawdata.txt");
+    string tUser;
+    string tPass;
+    int counter = 0;
+
+    while (rawTest >> tUser >> tPass) {
+        counter++;
+        // Checks if this is the 1st, 3rd, 5th, 7th, or 9th entry
+        if (counter == 1 || counter == 3 || counter == 5 || counter == 7 || counter == 9) {
+            testUsers.push_back(tUser);
+            testPasses.push_back(tPass);
+        }
+    }
+    rawTest.close();
+
+    // 3. Runs Legal Tests 
+    cout << "Legal:\n\n" 
+         << left << setw(15) << "Userid" 
+         << left << setw(20) << "Password (file)" 
+         << left << setw(25) << "Password (table/un)" 
+         << "Result" << endl;
+
+    for (int i = 0; i < testUsers.size(); i++) {
+        string user = testUsers[i];
+        string rawPass = testPasses[i];
+        
+        // Encrypts the raw password 
+        string encPass = encryptVigenere(rawPass);
+        
+        // Searchs for it in the table
+        string tablePass = myTable.search(user);
+
+        // Check if it matches
+        string result = (tablePass == encPass) ? "match" : "no match";
+
+        // Output results
+        cout << left << setw(15) << user 
+             << left << setw(20) << rawPass 
+             << left << setw(25) << tablePass 
+             << result << endl;
+    }
+/*
+    // 4. Run Illegal Tests (Expect No Match)
+    cout << "\nIllegal:\n\n"
+         << left << setw(15) << "Userid" 
+         << left << setw(20) << "Password (mod)" 
+         << left << setw(25) << "Password (table/un)" 
+         << "Result" << endl;
+
+    for (int i = 0; i < testUsers.size(); i++) {
+        string user = testUsers[i];
+        string rawPass = testPasses[i];
+
+        // Modifies the password (
+        if (rawPass[0] == 'z') { 
+            rawPass[0] = 'y'; 
+        } else { 
+            rawPass[0] = 'z'; 
+        }
+
+        // Encrypts the temp password
+        string tempPass = encryptVigenere(rawPass);
+
+        // Searches for the correct user
+        string tablePass = myTable.search(user);
+
+        // Compares: tablePass (Real) vs badEncPass (Fake)
+        string result = (tablePass == tempPass) ? "match" : "no match";
+
+        // Output results
+        cout << left << setw(15) << user 
+             << left << setw(20) << rawPass 
+             << left << setw(25) << tablePass 
+             << result << endl;
+    }
+*/
     return 0;
 }
