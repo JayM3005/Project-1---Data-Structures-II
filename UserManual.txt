@@ -1,0 +1,50 @@
+Jay McIntosh
+Data Structures & Algorithms II
+Project #1
+User's Manual
+
+Setup:
+    1. Download and unzip file from submission.
+    2. Zip should contain these project files:
+        - main.cpp - Code containing Phase 1 (Password Generator) and Phase 2 (Hash Table & Testing) logic.
+        - HashTable.cpp - Implements the Hash Table
+        - HashTable.hpp - Defines the Class and Node structure for Hash Table.
+        - Makefile - Script for compiling and cleaning the project.
+        - names.txt - Input file containing the list of user IDs.
+        - UserManual.txt - This file
+        - UML Diagram.png - System and structure diagram 
+
+Compiling:
+    3. The project includes a Makefile for easy compilation. Open a terminal in the project directory and run:
+         make
+
+This should create an executable file named 'finalproject'.
+
+Running the program:
+    4. After compiling, the program can be ran by executing the command:
+        ./finalproject
+
+Output:
+    5. After running the command, ./finalproject, it should output something similar to the example provide below:
+
+        Legal:
+
+        Userid         Password (file)     Password (table/un)      Result
+        SMITH          yrfpyaqhh           hfstqjeul                match
+        WILLIAMS       vtqaqavjd           ehdeijjwh                match
+        BROWN          uefbjvtkb           dssfbehxf                match
+        MILLER         hhdkqdpdc           qvqoimdqg                match
+        MOORE          pptqqhbfq           ydguiqpsu                match
+
+        Illegal:
+
+        Userid         Password (mod)      Password (table/un)      Result
+        SMITH          zrfpyaqhh           hfstqjeul                no match
+        WILLIAMS       ztqaqavjd           ehdeijjwh                no match
+        BROWN          zefbjvtkb           dssfbehxf                no match
+        MILLER         zhdkqdpdc           qvqoimdqg                no match
+        MOORE          zptqqhbfq           ydguiqpsu                no match
+
+***Notes:
+    - User Input: No user input needed for this project.
+    - Environment: Tested in multi-platform lab and will run there. 
