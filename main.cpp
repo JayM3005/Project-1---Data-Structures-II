@@ -162,7 +162,7 @@ int main() {
              << left << setw(25) << tablePass 
              << result << endl;
     }
-/*
+
     // 4. Run Illegal Tests (Expect No Match)
     cout << "\nIllegal:\n\n"
          << left << setw(15) << "Userid" 
@@ -196,6 +196,6 @@ int main() {
              << left << setw(25) << tablePass 
              << result << endl;
     }
-*/
+
     return 0;
 }
