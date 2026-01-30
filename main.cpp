@@ -196,6 +196,5 @@ int main() {
              << left << setw(25) << tablePass 
              << result << endl;
     }
-
     return 0;
 }
