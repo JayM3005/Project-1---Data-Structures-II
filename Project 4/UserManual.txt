@@ -19,6 +19,55 @@ Compiling:
     3. The project includes a Makefile for easy compilation. Open a terminal in the project directory and run:
          make
 
+This should create an executable file named 'binpack'.
+
 Running the program:
     4. After compiling, run the program by executing:
          ./binpack
+
+Output:
+    5. The program will automatically read the items.txt file, run the algorithms, and output a table followed by the bin contents. It will look similar to this (exact values and bins depend on items.txt):
+
+        Calculating permutations for optimal solution... (Please wait)
+
+        Policy                  Total Bins Used
+        ---------------------------------------
+        Optimal Solution        6
+        Online Algorithm
+          First Fit             6
+          Next Fit              7
+          Best Fit              6
+        Offline Algorithm
+          First Fit             6
+          Best Fit              6
+
+        Optimal:
+        b1: 0.81
+        b2: 0.755, 0.245
+        b3: 0.59, 0.41
+        b4: 0.51, 0.37
+        b5: 0.34, 0.339, 0.22
+        b6: 0.33, 0.19
+        ...
+        Online First Fit:
+        b1: 0.41, 0.34, 0.245
+        b2: 0.19, 0.59, 0.22
+        b3: 0.755
+        b4: 0.33, 0.51
+        b5: 0.339, 0.37
+        b6: 0.81
+        ...
+        Online Next Fit:
+        b1: 0.41, 0.34, 0.245
+        b2: 0.19, 0.59
+        b3: 0.755
+        b4: 0.33, 0.22
+        b5: 0.51, 0.339
+        b6: 0.81
+        b7: 0.37
+        ...
+        [Continues to print explicit bin contents for Best Fit and Offline variants]
+
+***Notes:
+    - User Input: No interactive user input is needed. The program reads directly from items.txt.
+    - Environment: Tested in multi-platform lab and will run there.
