@@ -1,0 +1,24 @@
+Jay McIntosh
+Data Structures & Algorithms II
+Project #4 (Bin Packing Problem)
+User's Manual
+
+Setup:
+    1. Download and unzip file from submission.
+    2. Zip should contain these project files:
+        - main.cpp - The driver program.
+        - BinPacker.hpp - Header file for the packing algorithms.
+        - BinPacker.cpp - Implementations of the Online, Offline, and Optimal Bin Packing algorithms.
+        - Bin.hpp - The struct defining the Bin object.
+        - items.txt - The input file containing the item sizes.
+        - Makefile - Script for compiling and cleaning the project.
+        - UserManual.txt - This file.
+        - UML Diagram.png - System and structure diagram reflecting the refactored code.
+
+Compiling:
+    3. The project includes a Makefile for easy compilation. Open a terminal in the project directory and run:
+         make
+
+Running the program:
+    4. After compiling, run the program by executing:
+         ./binpack
